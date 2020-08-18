@@ -20,7 +20,7 @@ This allows for reliable uncertainty estimates and can tackle the problem of hal
 
 ```
 \inproceedings{Laves2020MCDIP,
-    author = {Max-Heinrich Laves, Malte T{\"o}lle, Tobias Ortmaier},
+    author = {Max-Heinrich Laves and Malte T{\"o}lle and Tobias Ortmaier},
     title = {Uncertainty Estimation in Medical Image Denoising with Bayesian Deep Image Prior},
     booktitle = {MICCAI UNSURE Workshop},
     year = {2020}}
