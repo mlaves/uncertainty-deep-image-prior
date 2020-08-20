@@ -46,21 +46,6 @@ class Concat(nn.Module):
     def __len__(self):
         return len(self._modules)
 
-class AddNoisyFMs(nn.Module):
-    def __init__(self, dim, sigma=1):
-        super(AddNoisyFMs, self).__init__()
-        self.dim = dim
-        self.sigma = sigma
-
-    def forward(self, input):
-        a = list(input.size())
-        a[1] = self.dim
-
-        b = torch.zeros(a, dtype=input.dtype)#.type_as(input.data)
-        b.normal_(std=self.sigma)
-
-        return torch.cat((input, b), axis=1)
-
 
 class GenNoise(nn.Module):
     def __init__(self, dim2):
@@ -75,62 +60,6 @@ class GenNoise(nn.Module):
         b.normal_()
 
         return b
-
-
-class ProbabilityDropout2d(nn.Module):
-    def __init__(self, probs):
-        super(ProbabilityDropout2d, self).__init__()
-        self.probs = probs
-
-    def forward(self, x):
-
-        if np.array_equal(self.probs, np.ones(len(self.probs)) * self.probs[0]):
-            return F.dropout2d(x, p=self.probs[0])
-        else:
-            bino = np.random.rand(self.probs.shape[0])
-            dropout_probs = bino - self.probs
-
-            dropout_probs[dropout_probs >= 0] = 1
-            dropout_probs[dropout_probs < 0] = 0
-            zeros = torch.zeros(x.shape[2:], dtype=x.dtype)
-
-            # if x.device.type == 'cuda':
-            #     zeros.to(device)
-
-            # if torch.cuda.is_available():
-            #     zeros = zeros.cuda()
-            #
-            # x[0, dropout_probs == 0] = zeros#.cuda()#.to(x.device)
-            x[0, dropout_probs == 0] = torch.zeros(x.shape[2:], device=x.device, dtype=x.dtype)
-
-            return x / np.sum(dropout_probs) * dropout_probs.shape[0]
-
-            # outputs = []
-            # for i, prob in enumerate(self.probs):
-            #     outputs.append(F.dropout2d(x, p=prob)[:,i])
-            # return torch.cat(outputs)[None]
-            # bino = np.random.rand(self.probs.shape[0])
-            # dropout_probs = bino - self.probs
-            #
-            # dropout_probs[dropout_probs >= 0] = 1
-            # dropout_probs[dropout_probs < 0] = 0
-            #
-            # dropout_mask = np.array([np.ones(x.shape[2:]) if a == 1 else np.zeros(x.shape[2:]) for a in dropout_probs])
-            #
-            # dropout_mask = np_to_torch(dropout_mask)
-            #
-            # return dropout_mask * x / np.sum(dropout_probs) * dropout_probs.shape[0]
-
-
-class ProbabilityDropout(nn.Module):
-    def __init__(self, probs):
-        super(ProbabilityDropout, self).__init__()
-        self.probs = probs
-
-    def forward(self, x):
-        # should i drop out a value of the conv kernel?
-        x = torch.tensor([[F.dropout(x[0,i], self.probs[i]).tolist() for i in range(self.probs.shape[0])]])
-        return x
 
 
 class Swish(nn.Module):
