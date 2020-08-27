@@ -4,6 +4,8 @@ Max-Heinrich Laves, Malte Tölle, Tobias Ortmaier
 
 Code for our paper accepted at the MICCAI workshop on Uncertainty for Safe Utilization of Machine Learning in Medical Imaging (UNSURE) 2020.
 
+Paper link: [https://arxiv.org/abs/2008.08837](https://arxiv.org/abs/2008.08837)
+
 ## Abstract
 
 Uncertainty quantification in inverse medical imaging tasks with deep learning has received little attention.
@@ -22,7 +24,7 @@ This allows for reliable uncertainty estimates and can tackle the problem of hal
 \inproceedings{Laves2020MCDIP,
     author = {Max-Heinrich Laves and Malte T{\"o}lle and Tobias Ortmaier},
     title = {Uncertainty Estimation in Medical Image Denoising with Bayesian Deep Image Prior},
-    booktitle = {MICCAI UNSURE Workshop},
+    booktitle = {UNSURE Workshop (MICCAI)},
     year = {2020}
 }
 ```

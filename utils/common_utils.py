@@ -279,3 +279,17 @@ def optimize(optimizer, closure, num_iter):
         optimizer.zero_grad()
         loss = closure()
         optimizer.step()
+
+
+def optimize_lr(optimizer, closure, num_iter):
+    scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.9996)
+    for j in range(num_iter):
+        optimizer.zero_grad()
+        loss = closure()
+        optimizer.step()
+
+        if scheduler.get_last_lr()[0] > 1e-8:
+            scheduler.step()
+
+        if j % 100 == 0:
+            print("lr =", scheduler.get_last_lr()[0])
