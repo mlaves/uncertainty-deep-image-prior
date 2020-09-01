@@ -21,7 +21,7 @@ This allows for reliable uncertainty estimates and can tackle the problem of hal
 ## BibTeX
 
 ```
-\inproceedings{Laves2020MCDIP,
+@inproceedings{Laves2020MCDIP,
     author = {Max-Heinrich Laves and Malte T{\"o}lle and Tobias Ortmaier},
     title = {Uncertainty Estimation in Medical Image Denoising with Bayesian Deep Image Prior},
     booktitle = {UNSURE Workshop (MICCAI)},
